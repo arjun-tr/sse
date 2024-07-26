@@ -123,9 +123,11 @@ class SseClient extends StreamChannelMixin<String?> {
   }
 
   void _onIncomingMessage(Event message) {
-    var decoded =
+  var decoded =
         jsonDecode(((message as MessageEvent).data as JSString).toDart);
-    _incomingController.add(decoded as String);
+    //_incomingController.add(decoded as String);
+    var jsonEncodedString = jsonEncode(decoded); // Re-encode it to string
+    _incomingController.add(jsonEncodedString);
   }
 
   void _onOutgoingDone() {
